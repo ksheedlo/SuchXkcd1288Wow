@@ -3,7 +3,7 @@
 
   "name": "Such Xkcd 1288 Wow",
   "description": "This extension implements XKCD 1288 for great justice.",
-  "version": "1.3",
+  "version": "1.4",
 
   "content_scripts": [{
     "matches": [
