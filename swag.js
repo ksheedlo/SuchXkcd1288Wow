@@ -25,12 +25,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-(function (document) {
+(function (window, document) {
   'use strict';
-  var didChange = false,
-    observer;
+  var doSubstitutionR;
 
-  function walkDOM(node, func) {
+  function walkDOM(func, node) {
     func(node);
     node = node.firstChild;
     while (node) {
@@ -40,8 +39,6 @@
   }
 
   function doSubstitution(node) {
-    var newContent;
-
     if (node.nodeType === Node.TEXT_NODE) {
       node.textContent = node.textContent
         .replace(/witnesses/gi, 'these dudes I know')
@@ -62,9 +59,7 @@
     }
   }
   
-  function doSubstitutionR(node) {
-    walkDOM(node, doSubstitution);
-  }
+  doSubstitutionR = walkDOM.bind(null, doSubstitution);
 
   function handleChanges(summaries) {
     summaries[0].added.forEach(doSubstitutionR);
@@ -73,10 +68,10 @@
   
   doSubstitutionR(document.body);
   
-  observer = new MutationSummary({
+  new window.MutationSummary({
     callback: handleChanges,
     rootNode: document.body,
     queries: [{ all: true }]
   });
-})(document);
+})(window, document);
 
