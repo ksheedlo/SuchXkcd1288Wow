@@ -33,7 +33,7 @@
     func(node);
     node = node.firstChild;
     while (node) {
-      walkDOM(node, func);
+      walkDOM(func, node);
       node = node.nextSibling;
     }
   }
